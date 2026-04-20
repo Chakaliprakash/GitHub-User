@@ -41,15 +41,15 @@ function decorateProfileData(details) {
                         <span class="font-semibold text-white">Following:</span> ${details.following}
                     </div>
                     <div>
-                        <span class="font-semibold text-white">Location:</span> ${details.location}
+                        <span class="font-semibold text-white">Location:</span> ${details.location ? details.location : "N/A"}
                     </div>
                     <div>
                         <span class="font-semibold text-white">Company:</span> ${details.company ? details.company : "N/A"}
                     </div>
                     <div>
                         <span class="font-semibold text-white">Blog:</span>
-                        <a href="#" class="text-blue-400 hover:underline"
-                            target="_blank">${details.blog}</a>
+                        <a href="${details.blog ? details.blog : '#'}" class="text-blue-400 hover:underline"
+                            target="_blank">${details.blog ? details.blog : "N/A"}</a>
                     </div>
                 </div>
             </div>`;
@@ -62,8 +62,10 @@ searchBtn.addEventListener("click", function () {
   if (username.length > 0) {
     getProfileData(username).then((data) => {
       decorateProfileData(data);
+    }).catch((error) => {
+      alert(error.message);
     });
   } else {
-    alert();
+    alert("Please enter a GitHub username!");
   }
 });
